@@ -3,173 +3,212 @@
 
 <head>
     <style>
+        /* Styling for the inner grid container */
         .grid-container-inner {
-            display: grid;
-            grid-template-columns: auto;
-            background-color: #21b4f3;
-            padding: 5px;
-            width: 250px;
-            height: 300px;
-            border-radius:5%;
+            display: grid; /* Specifies the element as a grid container */
+            grid-template-columns: auto; /* Defines the columns in the grid, 'auto' means a single column with automatic width */
+            background-color: #21b4f3; /* Background color of the grid container */
+            padding: 5px; /* Padding around the content inside the grid container */
+            width: 250px; /* Width of the grid container */
+            height: 300px; /* Height of the grid container */
+            border-radius: 5%; /* Adds rounded corners to the grid container */
         }
         
+        /* Styling for the outer grid container */
         .grid-container-outer {
-            display: grid;
-            grid-template-columns: auto auto;
-            gap: 10px;
-            background-color: #21b4f3;
-            padding: 10px;
-            border-radius:5%;
+            display: grid; /* Specifies the element as a grid container */
+            grid-template-columns: auto auto; /* Defines two columns in the grid with automatic width */
+            gap: 10px; /* Specifies the gap between grid items (rows and columns) */
+            background-color: #21b4f3; /* Background color of the grid container */
+            padding: 10px; /* Padding around the content inside the grid container */
+            border-radius: 5%; /* Adds rounded corners to the grid container */
         }
         
+        /* Styling for text inputs */
         .input-text {
-            max-width: 70%; 
-            width: calc(70%); 
+            max-width: 70%; /* Maximum width for the text input */
+            width: calc(70%); /* Actual width for the text input, calculated relative to its container */
         }
         
+        /* Styling for the dashed rectangle */
         .dashed-rectangle {
-            display: grid;
-            grid-template-columns: auto;
-            border: 2px dashed #000;
-            padding: 10px;
-            padding-top: 0px;
-            margin-top: 10px;
+            display: grid; /* Specifies the element as a grid container */
+            grid-template-columns: auto; /* Defines a single column in the grid with automatic width */
+            border: 2px dashed #000; /* Border style for the dashed rectangle */
+            padding: 10px; /* Padding around the content inside the dashed rectangle */
+            padding-top: 0px; /* Additional top padding (overriding the previous value) */
+            margin-top: 10px; /* Margin at the top of the dashed rectangle */
         }
         
+        /* Styling for text labels */
         .text-label {
-            max-width: 30%; 
-            font-weight: bold;
-            display: inline-block;
+            max-width: 30%; /* Maximum width for the text label */
+            font-weight: bold; /* Specifies bold font for the text label */
+            display: inline-block; /* Displays the element as an inline-level block container */
         }
         
+        /* Styling for buttons */
         button {
-            font-size: 10px;
-            font-weight: bold;
-            background-color: #000000; 
-            color: #fff; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer;
-            width: 60px;
-            height: 20px;
-            text-align: center;
-            line-height: 10px;
+            font-size: 10px; /* Font size for the button text */
+            font-weight: bold; /* Specifies bold font for the button text */
+            background-color: #000000; /* Background color of the button */
+            color: #fff; /* Text color of the button */
+            border: none; /* Removes the border around the button */
+            border-radius: 5px; /* Adds rounded corners to the button */
+            cursor: pointer; /* Changes the cursor to a pointer on hover */
+            width: 60px; /* Width of the button */
+            height: 20px; /* Height of the button */
+            text-align: center; /* Centers the text inside the button */
+            line-height: 10px; /* Specifies the height of a line of text in the button */
         }
         
+        /* Styling for the submit button */
         button.submit {
-            background-color: #2ecc71;
+            background-color: #2ecc71; /* Background color for the submit button */
         }
         
+        /* Styling for the save button */
         button.save {
-            background-color: #e67e22; 
+            background-color: #e67e22; /* Background color for the save button */
         }
         
+        /* Styling for the inner rectangle container */
         .rectangle-container-inner {
-            position: absolute;
-            display: inline-block;
-            opacity: 0.85;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius:5%;
+            position: absolute; /* Specifies the positioning method as absolute */
+            display: inline-block; /* Displays the element as an inline-level block container */
+            opacity: 0.85; /* Opacity (transparency) of the inner rectangle container */
+            border-radius: 10px; /* Adds rounded corners to the inner rectangle container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds a shadow effect to the inner rectangle container */
+            top: 50%; /* Positions the top edge of the inner rectangle at the center of its containing element */
+            left: 50%; /* Positions the left edge of the inner rectangle at the center of its containing element */
+            transform: translate(-50%, -50%); /* Translates the inner rectangle to the center using a combination of percentage and translation */
+            border-radius: 5%; /* Adds rounded corners to the inner rectangle container (overriding the previous value) */
         }
         
+        /* Styling for the outer rectangle container with background image */
         .rectangle-container-outer {
-            display: inline-block;
-            background-image: url(images/coffer.png);
+            display: inline-block; /* Displays the element as an inline-level block container */
+            background-image: url(images/coffer.png); /* Sets the background image for the outer rectangle container */
         }
-        
     </style>
 </head>
 
 <body class="rectangle-container-outer">
-    <!-- <div class="rectangle-container-outer"> -->
-        <div class="rectangle-container-inner">
-            <div class="grid-container-outer">
-                <div class="grid-container-inner">
-                    <h1>Mr. Ms.?</h1>
-                    <div>
-                        <label for="name" class="text-label">Name:</label>
-                        <input type="text" id="name" class="input-text" placeholder="Enter a name" />
-                    </div>
-                    <div>
-                        <input type="radio" name="gender" id="male-radio" />
-                        <label for="male-radio">Male</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="gender" id="female-radio" />
-                        <label for="female-radio">Female</label>
-                    </div>
-                    <button type="button" onclick="submit()">Submit</button>
-                    <button type="button" onclick="save()">Save</button>
+    <div class="rectangle-container-inner">
+        <div class="grid-container-outer">
+            <!-- Left side of the rectangle (Mr. Ms?, Name, Male, Female, ...) -->
+            <div class="grid-container-inner">
+                <h1>Mr. Ms.?</h1>
+                <div>
+                    <label for="name" class="text-label">Name:</label>
+                    <input type="text" id="name" class="input-text" placeholder="Enter a name" />
                 </div>
-                
-                <div class="grid-container-inner">
-                    <h1 class="gjs-heading">Prediction</h1>
-                    <label id="gender">gender: </label>
-                    <label id="probability">probability: </label>
-                    <div class="dashed-rectangle">
-                        <h1>Saved Answer</h1>
-                        <label id="cached">Cached Result</label>
-                        <button type="button" onclick="emptyCache()">Clear</button>
-                    </div>
+                <div>
+                    <input type="radio" name="gender" id="male-radio" />
+                    <label for="male-radio">Male</label>
+                </div>
+                <div>
+                    <input type="radio" name="gender" id="female-radio" />
+                    <label for="female-radio">Female</label>
+                </div>
+                <button type="button" onclick="submit()">Submit</button>
+                <button type="button" onclick="save()">Save</button>
+            </div>
+            
+            
+            <!-- Right side of the rectangle (Prediction, Saved Anaswer, ...) -->
+            <div class="grid-container-inner">
+                <h1 class="gjs-heading">Prediction</h1>
+                <label id="gender">gender: </label>
+                <label id="probability">probability: </label>
+                <div class="dashed-rectangle">
+                    <h1>Saved Answer</h1>
+                    <label id="cached">Cached Result</label>
+                    <button type="button" onclick="emptyCache()">Clear</button>
                 </div>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
     
     <script>
         function disableControls() {
-            const formControls = document.querySelectorAll('input, button');
+            // Disable all form controls (inputs, buttons, radio buttons)
+            const formControls = document.querySelectorAll('input, button, radio');
             formControls.forEach(control => {
                 control.disabled = true;
             });
         }
         
         function enableControls() {
-            const formControls = document.querySelectorAll('input, button');
+            // Enable all form controls
+            const formControls = document.querySelectorAll('input, button, radio');
             formControls.forEach(control => {
                 control.disabled = false;
             });
         }
         
         function reset() {
+            // Reset prediction labels
+            // Just to avoid confusions and beautify the code 
+            // Maybe there were other reasons as well that I don't remeber :)
             document.getElementById('gender').innerHTML = `gender:`;
             document.getElementById('probability').innerHTML = `probability:`;
-            document.getElementById('cached').innerHTML = `Cached Result`; 
+            document.getElementById('cached').innerHTML = `Cached Result`;
+        }
+        
+        function isValidName(name) {
+            // Is name shorter than 256 letters ?
+            if (name.length > 255) {
+                alert("Name should be shorter than 256 letters.");
+                return false;
+            }
+            // Does name only consist of uppercase, lowercase letters and spaces?
+            const regex = /^[ A-Za-z]+$/;
+            if (!regex.test(name)) {
+                alert("Name should only contain English capital and lowercase letters and spaces.");
+                return false;
+            }
+            return true;
         }
         
         function submit() {
-            disableControls()
-            reset()
-            document.getElementById("male-radio").checked = false;  
-            document.getElementById("female-radio").checked = false;  
+            // Handle the submit button click
+            disableControls();
+            reset();
             const name = document.getElementById('name').value;
+            // Should be unchecked to avoid confusion
+            document.getElementById("male-radio").checked = false;
+            document.getElementById("female-radio").checked = false;
+            if (!isValidName(name)) {
+                enableControls();
+                return;
+            }
             fetch(`https://api.genderize.io/?name=${name}`)
             .then(response => response.json())
             .then(data => {
+                // Error sent in the response packet
                 if (data.error != null) {
                     document.getElementById('probability').innerHTML = ``;
                     document.getElementById('gender').innerHTML = `
                     ${data.error}.<br>
                     Retry Later<br>
                     `;
-                    return 
+                    return;
                 }
                 const gender = data.gender;
                 const probability = data.probability;
+                // No entry for the name inside the database
                 if (probability == 0) {
                     document.getElementById('gender').innerHTML = `Name not found.`;
                     document.getElementById('probability').innerHTML = ``;
                 } else {
-                    document.getElementById('gender').innerHTML = `gender: ${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('gender').innerHTML = `gender: ${gender}`;
                     document.getElementById('probability').innerHTML = `probability: ${probability}`;
                 }
             })
-            .catch(error => { 
-                console.error('Error:', error)
+            .catch(error => {
+                // Network problem or API server's issue
+                console.error('Error:', error);
                 document.getElementById('gender').innerHTML = `
                 ${error}.<br>
                 There are some possibilities:<br>
@@ -180,36 +219,45 @@
                 document.getElementById('probability').innerHTML = ``;
             });
             
-            cached = localStorage.getItem(name)
+            // Check for cached result
+            cached = localStorage.getItem(name);
             if (cached != null) {
                 document.getElementById('cached').innerHTML = `Cached: ${cached}`;
             } else {
                 document.getElementById('cached').innerHTML = `Cached: empty`;
             }
+            // Enable everything
             enableControls();
         }
         
         function save() {
+            // Handle the save button click
             const name = document.getElementById('name').value;
-            var gender = ""
+            var gender = "";
+            // If radio buttons are checked use them otherwise use predicted value
             if (document.getElementById("male-radio").checked) {
                 gender = 'male';
                 reset();
             } else if (document.getElementById("female-radio").checked) {
-                gender = 'female'
+                gender = 'female';
                 reset();
             } else {
                 gender = (document.getElementById('gender').innerHTML.split(':')[1]).trim();
             }
+            
             document.getElementById('cached').innerHTML = `Cached: ${gender}`;
+            // Store in the local storage
             localStorage.setItem(name, gender);
         }
         
         function emptyCache() {
+            // Handle the clear button click
             const name = document.getElementById('name').value;
             document.getElementById('cached').innerHTML = `Cached: empty`;
-            localStorage.removeItem(name)
+            // Remove from the local storage
+            localStorage.removeItem(name);
         }
+        
     </script>
 </body>
 
