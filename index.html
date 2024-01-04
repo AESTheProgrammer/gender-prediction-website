@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .grid-container-inner {
+            display: grid;
+            grid-template-columns: auto;
+            background-color: #21b4f3;
+            padding: 5px;
+            width: 250px;
+            height: 300px;
+            border-radius:5%;
+        }
+        
+        .grid-container-outer {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+            background-color: #21b4f3;
+            padding: 10px;
+            border-radius:5%;
+        }
+        
+        .input-text {
+            max-width: 70%; 
+            width: calc(70%); 
+        }
+        
+        .dashed-rectangle {
+            display: grid;
+            grid-template-columns: auto;
+            border: 2px dashed #000;
+            padding: 10px;
+            padding-top: 0px;
+            margin-top: 10px;
+        }
+        
+        .text-label {
+            max-width: 30%; 
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        button {
+            font-size: 10px;
+            font-weight: bold;
+            background-color: #000000; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+            width: 60px;
+            height: 20px;
+            text-align: center;
+            line-height: 10px;
+        }
+        
+        button.submit {
+            background-color: #2ecc71;
+        }
+        
+        button.save {
+            background-color: #e67e22; 
+        }
+        
+        .rectangle-container-inner {
+            position: absolute;
+            display: inline-block;
+            opacity: 0.85;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius:5%;
+        }
+        
+        .rectangle-container-outer {
+            display: inline-block;
+            background-image: url(images/coffer.png);
+        }
+        
+    </style>
+</head>
+
+<body class="rectangle-container-outer">
+    <!-- <div class="rectangle-container-outer"> -->
+        <div class="rectangle-container-inner">
+            <div class="grid-container-outer">
+                <div class="grid-container-inner">
+                    <h1>Mr. Ms.?</h1>
+                    <div>
+                        <label for="name" class="text-label">Name:</label>
+                        <input type="text" id="name" class="input-text" placeholder="Enter a name" />
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" id="male-radio" />
+                        <label for="male-radio">Male</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" id="female-radio" />
+                        <label for="female-radio">Female</label>
+                    </div>
+                    <button type="button" onclick="submit()">Submit</button>
+                    <button type="button" onclick="save()">Save</button>
+                </div>
+                
+                <div class="grid-container-inner">
+                    <h1 class="gjs-heading">Prediction</h1>
+                    <label id="gender">gender: </label>
+                    <label id="probability">probability: </label>
+                    <div class="dashed-rectangle">
+                        <h1>Saved Answer</h1>
+                        <label id="cached">Cached Result</label>
+                        <button type="button" onclick="emptyCache()">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+    
+    <script>
+        function disableControls() {
+            const formControls = document.querySelectorAll('input, button');
+            formControls.forEach(control => {
+                control.disabled = true;
+            });
+        }
+        
+        function enableControls() {
+            const formControls = document.querySelectorAll('input, button');
+            formControls.forEach(control => {
+                control.disabled = false;
+            });
+        }
+        
+        function reset() {
+            document.getElementById('gender').innerHTML = `gender:`;
+            document.getElementById('probability').innerHTML = `probability:`;
+            document.getElementById('cached').innerHTML = `Cached Result`; 
+        }
+        
+        function submit() {
+            disableControls()
+            reset()
+            document.getElementById("male-radio").checked = false;  
+            document.getElementById("female-radio").checked = false;  
+            const name = document.getElementById('name').value;
+            fetch(`https://api.genderize.io/?name=${name}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error != null) {
+                    document.getElementById('probability').innerHTML = ``;
+                    document.getElementById('gender').innerHTML = `
+                    ${data.error}.<br>
+                    Retry Later<br>
+                    `;
+                    return 
+                }
+                const gender = data.gender;
+                const probability = data.probability;
+                if (probability == 0) {
+                    document.getElementById('gender').innerHTML = `Name not found.`;
+                    document.getElementById('probability').innerHTML = ``;
+                } else {
+                    document.getElementById('gender').innerHTML = `gender: ${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('probability').innerHTML = `probability: ${probability}`;
+                }
+            })
+            .catch(error => { 
+                console.error('Error:', error)
+                document.getElementById('gender').innerHTML = `
+                ${error}.<br>
+                There are some possibilities:<br>
+                1- API server is down.<br>
+                2- API Server is busy.<br>
+                3- Issue with your internet connection.<br>
+                `;
+                document.getElementById('probability').innerHTML = ``;
+            });
+            
+            cached = localStorage.getItem(name)
+            if (cached != null) {
+                document.getElementById('cached').innerHTML = `Cached: ${cached}`;
+            } else {
+                document.getElementById('cached').innerHTML = `Cached: empty`;
+            }
+            enableControls();
+        }
+        
+        function save() {
+            const name = document.getElementById('name').value;
+            var gender = ""
+            if (document.getElementById("male-radio").checked) {
+                gender = 'male';
+                reset();
+            } else if (document.getElementById("female-radio").checked) {
+                gender = 'female'
+                reset();
+            } else {
+                gender = (document.getElementById('gender').innerHTML.split(':')[1]).trim();
+            }
+            document.getElementById('cached').innerHTML = `Cached: ${gender}`;
+            localStorage.setItem(name, gender);
+        }
+        
+        function emptyCache() {
+            const name = document.getElementById('name').value;
+            document.getElementById('cached').innerHTML = `Cached: empty`;
+            localStorage.removeItem(name)
+        }
+    </script>
+</body>
+
+</html>
